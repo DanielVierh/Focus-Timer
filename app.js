@@ -9,6 +9,7 @@ var sound_Play = new Audio('Assets/PlaySound.mp3');
 var sound_Stop = new Audio('Assets/StopSound.mp3');
 var sound_Countdown = new Audio('Assets/CountdownSound.mp3');
 var sound_Reset = new Audio('Assets/ResetSound.mp3');
+var sound_TikTak = new Audio('Assets/TicTac_Sound.mp3');
 
 // Start / Pause the Time
 document.getElementById('btn_Start').addEventListener('click', function() {
@@ -73,7 +74,7 @@ function timeRunning() {
     var date = new Date(null);
     date.setSeconds(sec); 
     var result = date.toISOString().substr(11, 8);
-
+    sound_TikTak.play();
     // Display
     document.getElementById('txtSec').value = sec;
     document.getElementById('btn_Start').innerHTML = "Pause";
@@ -110,6 +111,7 @@ function myStopFunction() {
     document.getElementById('txt_CurrentLernTime').style = "Color:red";
     document.getElementById('txt_Countdown').style = "Color:red";
     sound_Countdown.pause();
+    sound_TikTak.pause();
   }
 
 

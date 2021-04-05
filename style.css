@@ -69,11 +69,19 @@ body{
     font-size: 28px;
 }
 
+.BtnStart:hover{
+    color: rgb(6, 243, 6);
+}
+
 .BtnReset{
     width: 100%;
     background-color: rgba(46, 36, 7, 0.603);
     color: orange;
     font-size: 28px;
+}
+
+.BtnReset:hover{
+    color: orange;
 }
 
 
