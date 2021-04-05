@@ -74,12 +74,15 @@ function timeRunning() {
     var date = new Date(null);
     date.setSeconds(sec); 
     var result = date.toISOString().substr(11, 8);
+    // Tic Tac Sound
     sound_TikTak.play();
-    // Display
+    sound_TikTak.volume = 0.3;
+    // Display Time
     document.getElementById('txtSec').value = sec;
     document.getElementById('btn_Start').innerHTML = "Pause";
     document.getElementById('txt_CurrentLernTime').innerHTML = result;
     document.getElementById('txt_CurrentLernTime').style = "Color:white";
+    document.title = "Focus Timer-RUNNING";
 }
 
 function countdown() {
@@ -112,6 +115,7 @@ function myStopFunction() {
     document.getElementById('txt_Countdown').style = "Color:red";
     sound_Countdown.pause();
     sound_TikTak.pause();
+    document.title = "Focus Timer-PAUSED";
   }
 
 
