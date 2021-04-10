@@ -47,7 +47,7 @@ document.getElementById('btn_Reset').addEventListener('click',function(){
 // Countdown Buttons
 document.getElementById('btn_15Min').addEventListener('click',function(){
     document.getElementById('txt_Countdown').innerHTML = "00:15:00";
-    currentCountdownSec = 900;
+    currentCountdownSec = 9;
 })
 
 document.getElementById('btn_30Min').addEventListener('click',function(){
@@ -88,16 +88,26 @@ function timeRunning() {
 function countdown() {
     if(currentCountdownSec > 0) {
         currentCountdownSec -= 1;
-        var date = new Date(null);
+        var date = new Date(null);        
         date.setSeconds(currentCountdownSec); 
         var result = date.toISOString().substr(11, 8);
-        // Display Countdown
+
+         // Calc Time after Countdown
+        var currentTime = new Date();
+        currentTime.setSeconds(currentTime.getSeconds() + currentCountdownSec);
+        var hrs = currentTime.getHours();
+        var min = currentTime.getMinutes();
+        var approximate_Time_after_Countdown = hrs + ":" + min;
+
+        // Display Countdown and approx Time after Countdown expired 
+        document.getElementById('approxTime').innerHTML = "Countdown (approx Time: " + approximate_Time_after_Countdown + ")" ;
         document.getElementById('txt_Countdown').innerHTML = result;
         document.getElementById('txt_Countdown').style = "Color:white";
     }else{
         // Display Countdown
         document.getElementById('txt_Countdown').innerHTML = "Expired";
         document.getElementById('txt_Countdown').style = "Color:yellow";
+        document.getElementById('approxTime').innerHTML = "Countdown" ;
     }
 
 
