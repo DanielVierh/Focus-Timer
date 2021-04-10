@@ -47,7 +47,7 @@ document.getElementById('btn_Reset').addEventListener('click',function(){
 // Countdown Buttons
 document.getElementById('btn_15Min').addEventListener('click',function(){
     document.getElementById('txt_Countdown').innerHTML = "00:15:00";
-    currentCountdownSec = 9;
+    currentCountdownSec = 900;
 })
 
 document.getElementById('btn_30Min').addEventListener('click',function(){
