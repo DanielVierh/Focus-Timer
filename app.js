@@ -1,5 +1,6 @@
 
 
+// Var
 var timer; // Variable for Function of upcounting Seconds
 var countdownTimer;
 var time_is_running = false;
@@ -10,6 +11,9 @@ var sound_Stop = new Audio('Assets/StopSound.mp3');
 var sound_Countdown = new Audio('Assets/CountdownSound.mp3');
 var sound_Reset = new Audio('Assets/ResetSound.mp3');
 var sound_TikTak = new Audio('Assets/TicTac_Sound.mp3');
+
+// Page load
+document.addEventListener('DOMContentLoaded', load_Seconds);
 
 // Start / Pause the Time
 document.getElementById('btn_Start').addEventListener('click', function() {
@@ -126,8 +130,27 @@ function myStopFunction() {
     sound_Countdown.pause();
     sound_TikTak.pause();
     document.title = "Focus Timer-PAUSED";
+    save_Seconds();
   }
 
 
 
+// =========================================================================================================================================
+// LocalStorage
+// =========================================================================================================================================
 
+// Save
+function save_Seconds() {
+    localStorage.setItem('storedSeconds', sec);
+
+}
+
+// Load
+function load_Seconds() {
+    if(localStorage.getItem("storedSeconds") > 0) {
+        sec = localStorage.getItem("storedSeconds");
+        document.getElementById('txtSec').value = sec;
+    }else{
+        sec = 0;
+    }
+}
