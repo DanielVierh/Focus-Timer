@@ -11,9 +11,15 @@ var sound_Stop = new Audio('Assets/StopSound.mp3');
 var sound_Countdown = new Audio('Assets/CountdownSound.mp3');
 var sound_Reset = new Audio('Assets/ResetSound.mp3');
 var sound_TikTak = new Audio('Assets/TicTac_Sound.mp3');
+var approximate_Time_after_Countdown = "";
 
 // Page load
-document.addEventListener('DOMContentLoaded', load_Seconds);
+document.addEventListener('DOMContentLoaded', function(){
+    load_Seconds();
+    secIntoTime();
+});
+
+
 
 // Start / Pause the Time
 document.getElementById('btn_Start').addEventListener('click', function() {
@@ -45,6 +51,7 @@ document.getElementById('btn_Reset').addEventListener('click',function(){
     document.getElementById('btn_Start').innerHTML = "Start";
     document.getElementById('txt_CurrentLernTime').style = "Color:white";
     sec = 0;
+    calcApproxTime();
 })
 
 
@@ -52,21 +59,25 @@ document.getElementById('btn_Reset').addEventListener('click',function(){
 document.getElementById('btn_15Min').addEventListener('click',function(){
     document.getElementById('txt_Countdown').innerHTML = "00:15:00";
     currentCountdownSec = 900;
+    calcApproxTime();
 })
 
 document.getElementById('btn_30Min').addEventListener('click',function(){
     document.getElementById('txt_Countdown').innerHTML = "00:30:00";
     currentCountdownSec = 1800;
+    calcApproxTime();
 })
 
 document.getElementById('btn_45Min').addEventListener('click',function(){
     document.getElementById('txt_Countdown').innerHTML = "00:45:00";
     currentCountdownSec = 2700;
+    calcApproxTime();
 })
 
 document.getElementById('btn_60Min').addEventListener('click',function(){
     document.getElementById('txt_Countdown').innerHTML = "01:00:00";
     currentCountdownSec = 3600;
+    calcApproxTime();
 })
 
 
@@ -89,6 +100,8 @@ function timeRunning() {
     document.title = "Focus Timer-RUNNING";
 }
 
+
+
 function countdown() {
     if(currentCountdownSec > 0) {
         currentCountdownSec -= 1;
@@ -96,15 +109,10 @@ function countdown() {
         date.setSeconds(currentCountdownSec); 
         var result = date.toISOString().substr(11, 8);
 
-         // Calc Time after Countdown
-        var currentTime = new Date();
-        currentTime.setSeconds(currentTime.getSeconds() + currentCountdownSec);
-        var hrs = currentTime.getHours();
-        var min = currentTime.getMinutes();
-        var approximate_Time_after_Countdown = hrs + ":" + min;
+        //  // Calc Time when Countdown expires
+        calcApproxTime();
 
-        // Display Countdown and approx Time after Countdown expired 
-        document.getElementById('approxTime').innerHTML = "Countdown (approx Time: " + approximate_Time_after_Countdown + ")" ;
+        // Display Countdown and  
         document.getElementById('txt_Countdown').innerHTML = result;
         document.getElementById('txt_Countdown').style = "Color:white";
     }else{
@@ -114,13 +122,29 @@ function countdown() {
         document.getElementById('approxTime').innerHTML = "Countdown" ;
     }
 
-
     if(currentCountdownSec == 10){
         sound_Countdown.play();
     }
 
 }
 
+function calcApproxTime() {
+             // Calc Time after Countdown
+             var currentTime = new Date();
+             currentTime.setSeconds(currentTime.getSeconds() + currentCountdownSec);
+             var hrs = currentTime.getHours();
+             var min = currentTime.getMinutes();
+             approximate_Time_after_Countdown = hrs + ":" + min;
+             // Display approx Time after Countdown expired
+             document.getElementById('approxTime').innerHTML = "Countdown (approx Time: " + approximate_Time_after_Countdown + ")" ;
+}
+
+function secIntoTime(){
+    var date = new Date(null);
+    date.setSeconds(sec); 
+    var result = date.toISOString().substr(11, 8);
+    document.getElementById('txt_CurrentLernTime').innerHTML = result;
+}
 
 function myStopFunction() {
     clearInterval(timer);
@@ -154,3 +178,8 @@ function load_Seconds() {
         sec = 0;
     }
 }
+
+//Save Seconds, before the Window is closed 
+window.addEventListener("beforeunload", function(e){
+    save_Seconds();
+ }, false);
