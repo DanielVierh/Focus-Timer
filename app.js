@@ -41,17 +41,22 @@ document.getElementById('btn_Start').addEventListener('click', function() {
 
 // Reset
 document.getElementById('btn_Reset').addEventListener('click',function(){
-    sound_Reset.play();
-    document.getElementById('txt_Countdown').innerHTML = "00:15:00";
-    document.getElementById('txt_Countdown').style = "Color:white";
-    currentCountdownSec = 900;
 
-    document.getElementById('txt_CurrentLernTime').innerHTML = "00:00:00";
-    document.getElementById('txtSec').value = "0";
-    document.getElementById('btn_Start').innerHTML = "Start";
-    document.getElementById('txt_CurrentLernTime').style = "Color:white";
-    sec = 0;
-    calcApproxTime();
+    const decision = window.confirm("Do you really want to reset?");
+    if(decision) {
+            sound_Reset.play();
+            document.getElementById('txt_Countdown').innerHTML = "00:15:00";
+            document.getElementById('txt_Countdown').style = "Color:white";
+            currentCountdownSec = 900;
+
+            document.getElementById('txt_CurrentLernTime').innerHTML = "00:00:00";
+            document.getElementById('txtSec').value = "0";
+            document.getElementById('btn_Start').innerHTML = "Start";
+            document.getElementById('txt_CurrentLernTime').style = "Color:white";
+            sec = 0;
+            calcApproxTime();
+    }
+
 })
 
 
