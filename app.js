@@ -188,3 +188,97 @@ function load_Seconds() {
 window.addEventListener("beforeunload", function(e){
     save_Seconds();
  }, false);
+
+//=================================================================================================
+ // Analoge Uhr
+ function setTime() {
+
+    var canvas = document.getElementById('clock');
+    var context = canvas.getContext("2d");
+    var clockRadius = canvas.width/2;
+
+    // Hintergrund
+    context.fillStyle = "black";
+    context.beginPath();
+    context.arc(clockRadius, clockRadius,clockRadius, 0, 2*Math.PI);
+    context.fill();
+    
+    // Kleiner Kreis in der Mitte
+    context.beginPath();
+    context.arc(clockRadius, clockRadius,5, 0, 2*Math.PI);
+    context.fill();
+    context.fillStyle = "white";
+
+    // Zeitmarke 12 mittig
+    context.font = clockRadius / 7 + "px arial";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+
+    // Datumsanzeige
+    context.fillStyle = "green";
+    var datum = new Date().getDate();
+    context.fillText(datum, clockRadius + clockRadius * 0.5 * Math.sin(3 * 2*Math.PI/12),
+    clockRadius - (clockRadius * 0.5 * Math.cos(3 * 2*Math.PI/12)));
+
+    // 1 - 12 Uhr
+    for(var i = 1; i <= 12; i++) {
+        context.fillText(i, clockRadius + clockRadius * 0.8 * Math.sin(i * 2*Math.PI/12),
+        clockRadius - (clockRadius * 0.8 * Math.cos(i * 2*Math.PI/12)));
+    }
+
+    // Minutenpunkte
+    for(var i = 1; i <= 60; i++) {
+        context.fillText(".", clockRadius + clockRadius * 0.9 * Math.sin(i * 2*Math.PI/60),
+        clockRadius - (clockRadius * 0.9 * Math.cos(i * 2*Math.PI/60)));
+    }
+
+    // Uhrzeit
+    var hours = new Date().getHours();
+    var minutes = new Date().getMinutes();
+    var seconds = new Date().getSeconds();
+
+    // Um einen guten Winkel zu erhalten für Stunden
+    var fullHours = hours % 12 + minutes / 60 + seconds / 3600;
+    var hourAngle = fullHours * 2 * Math.PI/ 12;
+    var minuteAngle = minutes * 2 * Math.PI/ 60;
+    var secondAngle = seconds * 2 * Math.PI/ 60;
+
+    // Zeichnen  der Stunde
+    context.strokeStyle = "white";
+    context.moveTo(clockRadius, clockRadius);
+
+    context.lineTo(clockRadius + clockRadius * 0.5 * 
+    Math.sin(hourAngle), clockRadius - (clockRadius * 0.5 * 
+    Math.cos(hourAngle)));
+
+    context.lineWidth = 5;
+    context.stroke();
+
+
+    // Minuten Zeiger zeichnen
+    context.moveTo(clockRadius, clockRadius);
+
+    context.lineTo(clockRadius + clockRadius * 0.6 * 
+    Math.sin(minuteAngle), clockRadius - (clockRadius * 0.6 * 
+    Math.cos(minuteAngle)));
+
+    context.lineWidth = 3;
+    context.stroke();
+
+
+    // Sekundenzeicher zeichnen
+    context.strokeStyle = "red";
+    context.moveTo(clockRadius, clockRadius);
+
+    context.lineTo(clockRadius + clockRadius * 0.9 * 
+    Math.sin(secondAngle), clockRadius - (clockRadius * 0.9 * 
+    Math.cos(secondAngle)));
+
+    context.lineWidth = 1;
+    context.stroke();
+
+}
+
+setInterval(() => {
+    setTime();
+}, 1000);

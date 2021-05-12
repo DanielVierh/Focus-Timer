@@ -14,7 +14,7 @@ body{
 
 
 .col{
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     display: flex;
     background-color: rgba(255, 255, 255, 0);
     justify-content: center;
@@ -24,7 +24,7 @@ body{
 
 .uebersch{
     text-align: center;
-    font-size: 59px;
+    font-size: 50px;
     color: rgb(16, 221, 248);
     background-color: rgba(235, 242, 243, 0.048);
     border-radius: 25px;
@@ -48,7 +48,7 @@ body{
 
 .btn{
     padding: 10px;
-    margin: 15px;
+    margin: 10px;
     background-color: teal;
     font-size: 20px;
     font-weight: bold;
@@ -104,4 +104,13 @@ body{
 
 .container{
     backdrop-filter: blur(30px);
+}
+
+.cont2{
+    width: 180px;
+    height: 180px;
+    justify-content: center;
+    background-color: rgba(141, 146, 146, 0.281);
+    box-shadow: 0px 0px 20px gray;
+    border-radius: 150px;
 }
