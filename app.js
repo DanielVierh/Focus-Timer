@@ -12,6 +12,20 @@ var sound_Countdown = new Audio('Assets/CountdownSound.mp3');
 var sound_Reset = new Audio('Assets/ResetSound.mp3');
 var sound_TikTak = new Audio('Assets/TicTac_Sound.mp3');
 var approximate_Time_after_Countdown = "";
+var isMute = false;
+
+
+// Set Mute
+function muteSound() {
+    if(isMute == false) {
+        isMute = true;
+        document.getElementById("btnMute").style.background = "red";
+    }else{
+        isMute = false;
+        document.getElementById("btnMute").style.background = "grey";
+    }
+}
+
 
 // Page load
 document.addEventListener('DOMContentLoaded', function(){
@@ -95,8 +109,10 @@ function timeRunning() {
     date.setSeconds(sec); 
     var result = date.toISOString().substr(11, 8);
     // Tic Tac Sound
-    sound_TikTak.play();
-    sound_TikTak.volume = 0.3;
+    if(isMute == false) { 
+        sound_TikTak.play();
+        sound_TikTak.volume = 0.3;
+    }
     // Display Time
     document.getElementById('txtSec').value = sec;
     document.getElementById('btn_Start').innerHTML = "Pause";
