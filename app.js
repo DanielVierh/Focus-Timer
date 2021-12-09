@@ -179,7 +179,6 @@ function myStopFunction() {
   }
 
 
-
 // =========================================================================================================================================
 // LocalStorage
 // =========================================================================================================================================
@@ -195,6 +194,8 @@ function load_Seconds() {
     if(localStorage.getItem("storedSeconds") > 0) {
         sec = localStorage.getItem("storedSeconds");
         document.getElementById('txtSec').value = sec;
+        document.getElementById('txt_CurrentLernTime').style.color = "red";
+        document.getElementById('txt_Countdown').style.color = "red";
     }else{
         sec = 0;
     }
