@@ -4,7 +4,7 @@
 var timer; // Variable for Function of upcounting Seconds
 var countdownTimer;
 var time_is_running = false;
-var sec = 0; 
+var sec = 0;
 var currentCountdownSec = 900;
 var sound_Play = new Audio('Assets/PlaySound.mp3');
 var sound_Stop = new Audio('Assets/StopSound.mp3');
@@ -44,6 +44,7 @@ document.getElementById('btn_Start').addEventListener('click', function() {
         timer = setInterval(timeRunning,1000);
         countdownTimer = setInterval(countdown,1000);
         document.getElementById('btn_Start').innerHTML = "Pause";
+        calcApproxTime();
     }else{
         sound_Stop.play();
         time_is_running = false
@@ -106,10 +107,10 @@ function timeRunning() {
     sec = parseInt(secFromTextbox);
     sec += 1;
     var date = new Date(null);
-    date.setSeconds(sec); 
+    date.setSeconds(sec);
     var result = date.toISOString().substr(11, 8);
     // Tic Tac Sound
-    if(isMute == false) { 
+    if(isMute == false) {
         sound_TikTak.play();
         sound_TikTak.volume = 0.3;
     }
@@ -126,14 +127,14 @@ function timeRunning() {
 function countdown() {
     if(currentCountdownSec > 0) {
         currentCountdownSec -= 1;
-        var date = new Date(null);        
-        date.setSeconds(currentCountdownSec); 
+        var date = new Date(null);
+        date.setSeconds(currentCountdownSec);
         var result = date.toISOString().substr(11, 8);
 
         //  // Calc Time when Countdown expires
-        calcApproxTime();
+        //calcApproxTime();
 
-        // Display Countdown and  
+        // Display Countdown and
         document.getElementById('txt_Countdown').innerHTML = result;
         document.getElementById('txt_Countdown').style = "Color:white";
     }else{
@@ -162,7 +163,7 @@ function calcApproxTime() {
 
 function secIntoTime(){
     var date = new Date(null);
-    date.setSeconds(sec); 
+    date.setSeconds(sec);
     var result = date.toISOString().substr(11, 8);
     document.getElementById('txt_CurrentLernTime').innerHTML = result;
 }
@@ -201,7 +202,7 @@ function load_Seconds() {
     }
 }
 
-//Save Seconds, before the Window is closed 
+//Save Seconds, before the Window is closed
 window.addEventListener("beforeunload", function(e){
     save_Seconds();
  }, false);
@@ -219,7 +220,7 @@ window.addEventListener("beforeunload", function(e){
     context.beginPath();
     context.arc(clockRadius, clockRadius,clockRadius, 0, 2*Math.PI);
     context.fill();
-    
+
     // Kleiner Kreis in der Mitte
     context.beginPath();
     context.arc(clockRadius, clockRadius,5, 0, 2*Math.PI);
@@ -264,8 +265,8 @@ window.addEventListener("beforeunload", function(e){
     context.strokeStyle = "white";
     context.moveTo(clockRadius, clockRadius);
 
-    context.lineTo(clockRadius + clockRadius * 0.5 * 
-    Math.sin(hourAngle), clockRadius - (clockRadius * 0.5 * 
+    context.lineTo(clockRadius + clockRadius * 0.5 *
+    Math.sin(hourAngle), clockRadius - (clockRadius * 0.5 *
     Math.cos(hourAngle)));
 
     context.lineWidth = 5;
@@ -275,8 +276,8 @@ window.addEventListener("beforeunload", function(e){
     // Minuten Zeiger zeichnen
     context.moveTo(clockRadius, clockRadius);
 
-    context.lineTo(clockRadius + clockRadius * 0.6 * 
-    Math.sin(minuteAngle), clockRadius - (clockRadius * 0.6 * 
+    context.lineTo(clockRadius + clockRadius * 0.6 *
+    Math.sin(minuteAngle), clockRadius - (clockRadius * 0.6 *
     Math.cos(minuteAngle)));
 
     context.lineWidth = 3;
@@ -287,8 +288,8 @@ window.addEventListener("beforeunload", function(e){
     context.strokeStyle = "red";
     context.moveTo(clockRadius, clockRadius);
 
-    context.lineTo(clockRadius + clockRadius * 0.9 * 
-    Math.sin(secondAngle), clockRadius - (clockRadius * 0.9 * 
+    context.lineTo(clockRadius + clockRadius * 0.9 *
+    Math.sin(secondAngle), clockRadius - (clockRadius * 0.9 *
     Math.cos(secondAngle)));
 
     context.lineWidth = 1;
